@@ -4,31 +4,45 @@ import { links, social } from './data'
 import logo from './logo.svg'
 
 const Navbar = () => {
+  const [showNav,setShowNav] = useState(true)
+
   return (
     <nav>
       <div className='nav-center'>
         {/* header */}
         <div className='nav-header'>
           <img className='logo' src={logo} alt='logo' />
-          <button className='nav-toggle'>
+          <button className='nav-toggle' onClick={()=>setShowNav(!showNav)}>
             <FaBars />
           </button>
         </div>
         {/* link */}
+        {showNav && <>
         <div className='links-container show-container'>
           <ul className='links'>
-            <li> 
-              <a href="#">Home</a>
-              <a href="#">About</a>
-              <a href="#">Projects</a>
-              </li>
+            {links.map((link)=>{
+              const {id,url,text} = link;
+              return (
+                <li key={id}>
+                  <a href={url}>{text}</a>
+                </li>
+              )
+            })}  
           </ul>
+          </div>
           <ul className='social-icons'>
-            <li>
-              <a href='https://www.twitter.com'><FaTwitter /></a>
-            </li>
+            {social.map((sosial)=>{
+              const {id, url, icon} = sosial;
+              return (
+                <li key={id}>
+                  <a href={url}>{icon}</a>
+                </li>
+              )
+            })}
           </ul>
-        </div>
+        </>}
+        
+
       </div>
     </nav>
   );
